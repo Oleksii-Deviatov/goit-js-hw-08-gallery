@@ -15,19 +15,19 @@
 // Ссылка на оригинальное изображение должна храниться в data - атрибуте source на элементе img,
 //     и указываться в href ссылки(это необходимо для доступности).
 
-// <li class="gallery__item">
-//   <a
-//     class="gallery__link"
-//     href="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546_1280.jpg"
-//   >
-//     <img
-//       class="gallery__image"
-//       src="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546__340.jpg"
-//       data-source="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546_1280.jpg"
-//       alt="Tulips"
-//     />
-//   </a>
-// </li>
+{/* <li class="gallery__item">
+  <a
+    class="gallery__link"
+    href="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546_1280.jpg"
+  >
+    <img
+      class="gallery__image"
+      src="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546__340.jpg"
+      data-source="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546_1280.jpg"
+      alt="Tulips"
+    />
+  </a>
+</li> */}
 // Дополнительно
 // Следующий функционал не обязателен при сдаче задания, но будет хорошей практикой по работе с событиями.
 
@@ -35,4 +35,34 @@
 // Закрытие модального окна по нажатию клавиши ESC.
 // Пролистывание изображений галереи в открытом модальном окне клавишами "влево" и "вправо".
 
-import './gallery-items'
+import "./gallery-items.js";
+import galleryItems from "./gallery-items.js"
+
+
+// Создание и рендер разметки по массиву данных и предоставленному шаблону.
+const ref = {
+    galleryContainer: document.querySelector('.js-gallery'),
+}
+
+const galleryMarkup = createGalery(galleryItems);
+ref.galleryContainer.insertAdjacentHTML('beforeend', galleryMarkup);
+
+function createGalery(gallery) {
+    return gallery.map(({preview , original, description}) => {
+        return `
+        <li class="gallery__item">
+            <a
+            class="gallery__link"
+            href="${original}">
+            <img
+            class="gallery__image"
+            src="${preview}"
+            data-source="${original}"
+            alt="${description}"
+            />
+            </a>
+            </li> 
+        `;
+    })
+    .join('');
+}
