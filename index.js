@@ -1,7 +1,7 @@
-import "./gallery-items.js";
 import galleryItems from "./gallery-items.js"
 
 // Создание и рендер разметки по массиву данных и предоставленному шаблону.
+
 const ref = {
     galleryContainer: document.querySelector('.js-gallery'),
     galleryImage: document.querySelector('.gallery__image'),
@@ -57,17 +57,16 @@ function openJsLightbox(e) {
 }
 
 // Закрытие модального окна по клику на кнопку button[data-action="close-lightbox"].
+// Закрытие модального окна по клику на div.lightbox__overlay.
 
 ref.lightboxButton.addEventListener('click', closeJsLightbox);
+ref.lightboxOverlay.addEventListener('click', closeJsLightbox);
 
 function closeJsLightbox() {
     ref.jsLightbox.classList.remove("is-open");
     ref.lightboxImage.src = '';
     ref.lightboxImage.alt = '';
 }
-
-// Закрытие модального окна по клику на div.lightbox__overlay.
-ref.lightboxOverlay.addEventListener('click', closeJsLightbox);
 
 // Закрытие модального окна по нажатию клавиши ESC.
 
@@ -89,10 +88,12 @@ function scrollGallery(e, gallery) {
         index -= 1;
         ref.lightboxImage.dataset.index = index;
         ref.lightboxImage.src = gallery[index].original;
+        ref.lightboxImage.alt = gallery[index].description;
     }
-        if (e.code === "ArrowRight" && index < gallery.length - 1) { 
-            index += 1;
-            ref.lightboxImage.dataset.index = index;
-            ref.lightboxImage.src = gallery[index].original;
+    if (e.code === "ArrowRight" && index < gallery.length - 1) { 
+        index += 1;
+        ref.lightboxImage.dataset.index = index;
+        ref.lightboxImage.src = gallery[index].original;
+        ref.lightboxImage.alt = gallery[index].description;
     }
 }
